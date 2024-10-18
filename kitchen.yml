@@ -1,0 +1,52 @@
+---
+driver:
+  name: ec2
+  aws_ssh_key_id: kitchen-ec2
+  spot_price: on-demand
+  region: us-east-1
+  availability_zone: a
+  instance_type: t3.medium
+  associate_public_ip: true
+  interface: public
+  subnet_id: <%= ENV['KITCHEN_EC2_SUBNET_ID'] %>
+  security_group_ids:  <%= ENV['KITCHEN_EC2_SG_IDS'] %>
+  user_data: user_data.ps1
+  retryable_tries: 120
+  metadata_options:
+    http_tokens: 'required'
+    http_put_response_hop_limit: 1
+    instance_metadata_tags: 'enabled'
+
+provisioner:
+  name: shell
+  log_level: 5
+  max_retries: 3
+  wait_for_retry: 30
+  retry_on_exit_code: # will retry if winrm is unable to connect to the ec2 instance
+    - -1 #Generic error during Chef execution 
+    - 1 #Generic error during Chef execution
+
+verifier:
+  name: shell
+  #command: env
+  command: echo hello
+
+transport:
+  name: winrm
+  port: 5986
+  winrm_transport: ssl
+  ssl: true
+  ssh_key: ~/.ssh/kitchen-ec2.pem
+  max_wait_until_ready: 900
+  connect_timeout: 60
+  connection_retries: 10
+  connection_retry_sleep: 10
+  username: Administrator
+
+platforms:
+  - name: windows-2019
+    driver:
+      image_id: <%= ENV['KITCHEN_EC2_AMI_ID'] %>
+
+suites:
+  - name: default
