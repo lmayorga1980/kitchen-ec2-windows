@@ -17,7 +17,7 @@
       {
         "customType": "regex",
         "fileMatch": [".*.yaml",".*.tf", ".*.txt"],
-        "matchStrings":
+        "matchStrings": 
           [
             ".*amiFilter=(?<packageName>.*?)\n(.*currentImageName=(?<currentDigest>.*?)\n)?(.*\n)?.*?(?<depName>[a-zA-Z0-9-_:]*)[ ]*?[:|=][ ]*?[\"|']?(?<currentValue>ami-[a-z0-9]{17})[\"|']?.*"],
         "datasourceTemplate": "aws-machine-image",

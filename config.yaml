@@ -5,8 +5,8 @@ eks_clusters:
       efs:
         # amiFilter=[{"Name":"owner-id","Values":["602401143452"]},{"Name":"name","Values":["amazon-eks-node-1.20-*"]}]
         # currentImageName=unknown
-        ami: "abcd"
+        ami: "ami-0083e9407e275acf2"
 
 # amiFilter=[{"Name":"owner-id","Values":["602401143452"]},{"Name":"name","Values":["amazon-eks-node-1.20-*"]}]
 # currentImageName=unknown
-ami: "ami-0ab1687f626a22bf5"
+ami: "ami-0083e9407e275acf2"
